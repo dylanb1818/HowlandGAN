@@ -1,10 +1,14 @@
 from Pipeline import Pipeline
+from ModelAnalysis import ModelAnalysis
+from ModelPlots import ModelPlots
+from colabcode import ColabCode
+from tests import TestInputDataShape
+import unittest
+
+
 
 if __name__ == '__main__':
     N, h, w, c = 5, 10, 10, 2
-
-
-    PL = Pipeline
-    PL.create_wind_nc_files()
-    np_tensor = PL.create_ones_numpy_tensor(1, 3, 3, 2)
-    print(np_tensor)
+    PL = Pipeline()
+    PL.get_uwind_and_vwind_data()
+    unittest.main()

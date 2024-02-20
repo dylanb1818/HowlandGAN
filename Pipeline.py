@@ -2,13 +2,14 @@ import numpy as np
 import os
 import netCDF4 as nc
 from netCDF4 import Dataset
+# import tensorflow as tf
 import time
 
 class Pipeline:
     def __init__(self):
         pass
 
-    def create_wind_nc_files(wsfilepath=('./ncFiles/small_ws.nc'), wdfilepath=('./ncFiles/small_wd.nc')):
+    def create_wind_nc_files(self, wsfilepath=('./ncFiles/small_ws.nc'), wdfilepath=('./ncFiles/small_wd.nc')):
         '''
         creates 2 files for ws/wd
         adds columns for time, lat, long, ws, wd
@@ -61,3 +62,15 @@ class Pipeline:
         assert np_tensor.shape == (N, h, w, c)
 
         return np_tensor
+    
+    def get_uwind_and_vwind_data(self):
+        '''
+            Open wind_speed.nc and wind_direction.nc files
+            Converts data from speed and directiton to u and v components
+            Creates [N, h, w, C] numpy tensor and converts into TFRecord
+
+            Saves TFRecord to ./Data/TFRecord_data
+        '''
+        pass
+    
+    
