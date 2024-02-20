@@ -29,4 +29,4 @@ class Models:
     def fetch_stengal_wind_data():
         PL = Pipeline()
        
-        PL.get_uwind_and_vwind_data()
+        PL.get_uwind_and_vwind()

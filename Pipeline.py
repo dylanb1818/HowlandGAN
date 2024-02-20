@@ -6,8 +6,10 @@ from netCDF4 import Dataset
 import time
 
 class Pipeline:
-    def __init__(self):
-        pass
+    def __init__(self, N, h , w):
+        self.N = N
+        self.h = h
+        self.w = w
 
     def create_wind_nc_files(self, wsfilepath=('./ncFiles/small_ws.nc'), wdfilepath=('./ncFiles/small_wd.nc')):
         '''
@@ -56,21 +58,82 @@ class Pipeline:
 
 
 
-    def create_ones_numpy_tensor(N, h, w, c):
-        np_tensor = np.ones([N, h, w, c])
+    def create_ones_numpy_tensor(self, c):
+        np_tensor = np.ones([self.N, self.h, self.w, c])
 
-        assert np_tensor.shape == (N, h, w, c)
+        assert np_tensor.shape == (self.N, self.h, self.w, c)
 
         return np_tensor
     
-    def get_uwind_and_vwind_data(self):
+
+    ## 2D Variables
+    def get_uwind_and_vwind(self, C=2):
         '''
             Open wind_speed.nc and wind_direction.nc files
             Converts data from speed and directiton to u and v components
-            Creates [N, h, w, C] numpy tensor and converts into TFRecord
+            Creates [N, h, w, 2] numpy tensor and converts into TFRecord
 
             Saves TFRecord to ./Data/TFRecord_data
         '''
-        pass
+        return self.create_ones_numpy_tensor(C)
     
+    def get_DNI_and_DHI(self, C=2):
+        '''
+            Open solar.nc files
+            Creates [N, h, w, 2] numpy tensor and converts into TFRecord
+
+            Saves TFRecord to ./Data/TFRecord_data
+        '''
+        return self.create_ones_numpy_tensor(C)
+
+    def get_geopotential(self, C=3):
+        '''
+            open geopotential.nc
+            Creates [N, h, w, 3] numpy tensor and converts into TFRecord
+            C = 3 corresponds to Altitude Levels = 850, 700, 500 hPa
+            
+            Saves TFRecord to ./Data/TFRecord_data
+        '''
+        return self.create_ones_numpy_tensor(C)
+
+    def get_specific_humidity(self, C=3):
+        '''
+            open specific_humidity.nc
+            Creates [N, h, w, 3] numpy tensor and converts into TFRecord
+            C = 3 corresponds to Altitude Levels = 850, 700, 500 hPa
+            
+            Saves TFRecord to ./Data/TFRecord_data
+        '''
+        return self.create_ones_numpy_tensor(C)
+
+    def get_temperature(self, C=3):
+        '''
+            open temperature.nc
+            Creates [N, h, w, 3] numpy tensor and converts into TFRecord
+            C = 3 corresponds to Altitude Levels = 850, 700, 500 hPa
+            
+            Saves TFRecord to ./Data/TFRecord_data
+        '''
+        return self.create_ones_numpy_tensor(C)
+
+    def get_sealevel_pressure(self, C=1):
+        '''
+            open sealevel_pressure.nc
+            Creates [N, h, w, 1] numpy tensor and converts into TFRecord
+            C = 3 corresponds to Altitude Levels = 850, 700, 500 hPa
+            
+            Saves TFRecord to ./Data/TFRecord_data
+        '''
+        return self.create_ones_numpy_tensor(C)
+
+    def get_total_aerosol_optical_depth_forcing(self, C=1):
+        '''
+            open total_aerosol_optical_depth_forcing.nc
+            Creates [N, h, w, 1] numpy tensor and converts into TFRecord
+            C = 3 corresponds to Altitude Levels = 850, 700, 500 hPa
+            
+            Saves TFRecord to ./Data/TFRecord_data
+        '''
+        return self.create_ones_numpy_tensor(C)
     
+    ## 1D variables
